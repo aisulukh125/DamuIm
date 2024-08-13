@@ -19,33 +19,33 @@ const TabsLayout = () => {
             height: 70
           }
         }}>
-        <Tabs.Screen 
-          name='home' 
-          options={{
-            title: 'Home',
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-            ),
-          }}
-        />
-        <Tabs.Screen 
-          name='history' 
-          options={{
-            title: 'History',
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'time' : 'time-outline'} color={color} />
-            ),
-          }}
-        />
-        <Tabs.Screen 
-          name='favorite' 
-          options={{
-            title: 'Favorite',
-            tabBarIcon: ({ color, focused }) => (
-              <TabBarIcon name={focused ? 'heart' : 'heart-outline'} color={color} />
-            ),
-          }}
-        />
+          <Tabs.Screen 
+            name='home' 
+            options={{
+              title: 'Home',
+              tabBarIcon: ({ color, focused }) => (
+                <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
+              ),
+            }}
+          />
+          <Tabs.Screen 
+            name='history' 
+            options={{
+              title: 'History',
+              tabBarIcon: ({ color, focused }) => (
+                <TabBarIcon name={focused ? 'time' : 'time-outline'} color={color} />
+              ),
+            }}
+          />
+          <Tabs.Screen 
+            name='favorite' 
+            options={{
+              title: 'Favorite',
+              tabBarIcon: ({ color, focused }) => (
+                <TabBarIcon name={focused ? 'heart' : 'heart-outline'} color={color} />
+              ),
+            }}
+          />
         <Tabs.Screen 
           name='settings' 
           options={{

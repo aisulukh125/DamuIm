@@ -12,7 +12,7 @@ export default function Index() {
       }}
     >
       <Text>DamuYm</Text>
-      <Link href={'(tabs)/home'}>More</Link>
+      <Link href={'(tabs)/home'}>Home</Link>
     </View>
   );
 }
