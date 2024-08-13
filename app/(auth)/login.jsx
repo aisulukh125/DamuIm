@@ -3,7 +3,7 @@ import React from 'react'
 
 const Login = () => {
   return (
-    <View>
+    <View className="w-full h-full justify-evenly items-center"> 
       <Text>Log In</Text>
     </View>
   )

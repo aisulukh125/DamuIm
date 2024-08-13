@@ -3,7 +3,7 @@ import React from 'react'
 
 const Registration = () => {
   return (
-    <View>
+    <View className="w-full h-full justify-evenly items-center">
       <Text>Create Account</Text>
     </View>
   )
