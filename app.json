@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "DamuYm",
-    "slug": "DamuYm",
+    "name": "DauysYm",
+    "slug": "DauysYm",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -20,7 +20,7 @@
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.khisull.DamuImApp"
+      "package": "com.khisull.DauysYm"
     },
     "web": {
       "bundler": "metro",
@@ -38,7 +38,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "25d402f0-3038-4567-a385-ab371b73d3ed"
+        "projectId": "f372497f-bf60-4fe2-a0ab-cc067b9937eb"
       }
     }
   }
