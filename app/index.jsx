@@ -9,36 +9,27 @@ import { images } from '../constants'
 
 export default function Index() {
   return (
-    <SafeAreaView className="h-full bg-[#008da8]">
+    <SafeAreaView className="h-full bg-white">
       <ScrollView contentContainerStyle={{ height: '100%' }}> 
         <View className="w-full h-full justify-evenly items-center px-6">
           <View className="w-full h-[65vh] justify-center items-center">
             <Image
               source={images.logo}
-              className="w-[50vw] h-[30vh]"
+              className="w-[25vw] h-[25vh]"
               resizeMode='cover'
             />
-            <Text className="text-3xl text-white font-bold text-center">Welcome to the Sign Language to Kazakh Translator!</Text>
+            <Text className="w-[65vw] text-5xl font-medium text-center">WELCOME TO DAUYS<Text className="text-[#0D9543]">YM</Text></Text>
           </View>
-          <View className="relative w-full h-[20vh] items-end justify-center">
+          <View className="relative w-[60vw] h-[20vh] items-end justify-center">
             <CustomButton 
-              title="Get Started"
+              title="Let's Start"
               handlePress={()=>{router.push('/(auth)/registration')}}
-              containerStyles="w-full border-2 border-[#ddb500] bg-[#ddb500]"
-              textStyles="text-white"
-            />
-            <CustomButton 
-              title="Already have Account"
-              handlePress={()=>{router.push('/(auth)/login')}}
-              containerStyles="w-full mt-3 border-[#ddb500] border-2"
+              containerStyles="w-[60vw] border-2 border-[#0D9543] bg-[#0D9543]"
               textStyles="text-white"
             />
           </View>
         </View>
       </ScrollView>
-      
-
-      <StatusBar backgroundColor='#008da8' style='light'/> 
     </SafeAreaView>
   );
 }

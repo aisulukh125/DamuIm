@@ -15,7 +15,7 @@ const CustomButton = ({
         className={`rounded-3xl min-h-[62px] justify-center items-center ${containerStyles} ${isLoading ? 'opacity-50' : ''}`}
         disabled={isLoading}
     >
-      <Text className={`text-xl font-semibold uppercase ${textStyles}`}>
+      <Text className={`text-xl font-semibold ${textStyles}`}>
         {title}
       </Text>
     </TouchableOpacity>
