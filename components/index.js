@@ -1,2 +1,4 @@
 import CustomButton from "./CustomButton";
-export { CustomButton }
+import FormField from "./FormField";
+import TabBarIcon from "./TabBarIcon";
+export { CustomButton, FormField, TabBarIcon }
