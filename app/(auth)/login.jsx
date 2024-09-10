@@ -14,7 +14,7 @@ const Login = () => {
   }
   return (
     <SafeAreaView className="h-[full] p-7">
-      <Text className="w-[25vw] text-2xl font-medium text-left">DAUYS<Text className="text-[#0D9543]">YM</Text></Text>
+      <Text className="w-[30vw] text-2xl font-medium text-left">DAUYS<Text className="text-[#0D9543]">YM</Text></Text>
       <View className="w-full h-full justify-center items-center"> 
         <Text className="text-[#0D9543] text-3xl">Log In</Text>
         <View className="h-[40vh] w-[80vw] justify-evenly items-center mt-7">

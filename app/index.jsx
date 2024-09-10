@@ -18,7 +18,7 @@ export default function Index() {
               className="w-[25vw] h-[25vh]"
               resizeMode='cover'
             />
-            <Text className="w-[65vw] text-5xl font-medium text-center">WELCOME TO DAUYS<Text className="text-[#51f542]">YM</Text></Text>
+            <Text className="w-[65vw] text-5xl font-medium text-center">WELCOME TO DAUYS<Text className="text-[#0D9543]">YM</Text></Text>
           </View>
           <View className="relative w-[60vw] h-[20vh] items-end justify-center">
             <CustomButton 
