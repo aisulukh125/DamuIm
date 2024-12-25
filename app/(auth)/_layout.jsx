@@ -1,30 +1,41 @@
-import { View, Text } from 'react-native'
-import { Stack } from 'expo-router'
-import { StatusBar } from 'expo-status-bar'
-
+import { SafeAreaView } from "react-native-safe-area-context";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet } from "react-native";
 const AuthLayout = () => {
   return (
-    <>
-      <Stack>
-        <Stack.Screen 
-          name="login"
-          options={{
-            headerShown: false
-          }}
-        />
-        <Stack.Screen 
-          name="registration"
-          options={{
-            headerShown: false
-          }}
-        />
+    <SafeAreaView style={styles.container}>
+      <Stack
+        screenOptions={{
+          headerShown: false, 
+        }}
+      >
+        <Stack.Screen name="login" />
+        <Stack.Screen name="registration" />
+        <Stack.Screen name="profileSettings" />
+        <Stack.Screen name="numberVerification" />
       </Stack>
-      
-      <StatusBar 
-        backgroundColor='#fff' style='dark'
-      /> 
-    </>
-  )
-}
 
-export default AuthLayout
+      {/* Status Bar */}
+      <StatusBar backgroundColor="#fff" style="dark" />
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: "#FFFFFF", // Consistent background for auth screens
+  },
+  header: {
+    alignItems: "center",
+    marginTop: 10,
+  },
+  headerText: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#333",
+  },
+});
+
+export default AuthLayout;

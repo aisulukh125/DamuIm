@@ -2,7 +2,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Stack } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
 
-export default function RootLayout() {
+export default function HomeLayout() {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
       <Stack
@@ -10,9 +10,9 @@ export default function RootLayout() {
           headerShown: false, 
         }}
       >
-        <Stack.Screen name="index" />
-        <Stack.Screen name="(tabs)" />
-        <Stack.Screen name="(auth)" />
+        <Stack.Screen name="help" />
+        <Stack.Screen name="update" />
+        <Stack.Screen name="training" />
       </Stack>
 
       {/* StatusBar */}

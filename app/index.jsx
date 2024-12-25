@@ -1,35 +1,113 @@
-import { Link } from "expo-router";
-import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Text, View, Image, ScrollView } from 'react-native';
-import { Redirect, router } from 'expo-router';
-import { CustomButton } from '../components';
-import { images } from '../constants'
- 
+import { Text, View, Image, ScrollView, StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { useFonts } from "expo-font";
+import { images } from "../constants";
+import { router } from "expo-router";
 
 export default function Index() {
+  const [fontsLoaded] = useFonts({
+    Comfortaa: require("../assets/fonts/Comfortaa-Regular.ttf"), // Replace with correct path
+  });
+
+  if (!fontsLoaded) {
+    return null; 
+  }
+
   return (
-    <SafeAreaView className="h-full bg-white">
-      <ScrollView contentContainerStyle={{ height: '100%' }}> 
-        <View className="w-full h-full justify-evenly items-center px-6">
-          <View className="w-full h-[65vh] justify-center items-center">
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.innerContainer}>
+          {/* Logo and Welcome Text */}
+          <View style={styles.logoContainer}>
             <Image
               source={images.logo}
-              className="w-[25vw] h-[25vh]"
-              resizeMode='cover'
+              style={styles.logo}
+              resizeMode="cover"
             />
-            <Text className="w-[65vw] text-5xl font-medium text-center">WELCOME TO DAUYS<Text className="text-[#0D9543]">YM</Text></Text>
+            <Text style={styles.title}>
+              WELCOME TO DAUYS
+              <Text style={styles.highlight}>YM</Text>
+            </Text>
           </View>
-          <View className="relative w-[60vw] h-[20vh] items-end justify-center">
-            <CustomButton 
-              title="Let's Start"
-              handlePress={()=>{router.push('/(auth)/registration')}}
-              containerStyles="w-[60vw] border-2 border-[#0D9543] bg-[#0D9543]"
-              textStyles="text-white"
-            />
+
+          {/* Gradient Button */}
+          <View style={styles.buttonContainer}>
+            <LinearGradient
+              colors={["#0D9543", "#3FB76F", "#A5E8C0"]} 
+              start={{ x: 0.77, y: -0.22 }} 
+              end={{ x: 0, y: 1 }} 
+              style={styles.gradientButton}
+            >
+              <Text
+                style={styles.buttonText}
+                onPress={() => router.push("/(auth)/registration")}
+              >
+                Let’s Start
+              </Text>
+            </LinearGradient>
           </View>
         </View>
       </ScrollView>
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    height: "60%",
+    width: "80%",
+    marginVertical: "20%",
+    marginHorizontal: "10%",
+    backgroundColor: "white",
+  },
+  scrollContent: {
+    flex: 1,
+  },
+  innerContainer: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: 24,
+  },
+  logoContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  logo: {
+    width: "30%", 
+    height: "30%",
+  },
+  title: {
+    textAlign: "center",
+    fontSize: 32,
+    fontWeight: "600",
+    fontFamily: "Comfortaa", // Use Comfortaa font
+  },
+  highlight: {
+    color: "#0D9543",
+  },
+  buttonContainer: {
+    width: "75%",
+    marginBottom: 24,
+  },
+  gradientButton: {
+    width: "100%",
+    borderRadius: 15,
+    paddingVertical: 12,
+    alignItems: "center",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    elevation: 5,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
+    fontFamily: "Comfortaa",
+  },
+});
