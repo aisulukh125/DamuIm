@@ -1,46 +1,49 @@
-import { SafeAreaView } from "react-native-safe-area-context";
-import { Text, View, Image, ScrollView, StyleSheet } from "react-native";
+import { useRouter } from "expo-router";
+import { SafeAreaView, Text, View, Image, ScrollView, ActivityIndicator } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { useFonts } from "expo-font";
 import { images } from "../constants";
-import { router } from "expo-router";
 
 export default function Index() {
+  const router = useRouter();
+
   const [fontsLoaded] = useFonts({
-    Comfortaa: require("../assets/fonts/Comfortaa-Regular.ttf"), // Replace with correct path
+    Comfortaa: require("../assets/fonts/Comfortaa-Regular.ttf"),
+    Nunito: require("../assets/fonts/Nunito-Regular.ttf"),
   });
 
   if (!fontsLoaded) {
-    return null; 
+    return (
+      <View className="flex-1 justify-center items-center bg-white">
+        <ActivityIndicator size="large" color="#0D9543" />
+        <Text className="mt-4 text-lg text-green-600 font-Comfortaa">Loading...</Text>
+      </View>
+    );
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.scrollContent}>
-        <View style={styles.innerContainer}>
+    <SafeAreaView className="flex-1 bg-white">
+      <ScrollView contentContainerStyle={{ flexGrow: 1 }} className="justify-center items-center">
+        <View className="flex-1 justify-center items-center py-32">
           {/* Logo and Welcome Text */}
-          <View style={styles.logoContainer}>
-            <Image
-              source={images.logo}
-              style={styles.logo}
-              resizeMode="cover"
-            />
-            <Text style={styles.title}>
+          <View className="items-center mb-8">
+            <Image source={images.logo} className="w-40 h-40" resizeMode="cover" />
+            <Text className="mt-5 text-3xl font-Comfortaa text-center">
               WELCOME TO DAUYS
-              <Text style={styles.highlight}>YM</Text>
+              <Text className="text-green-600">YM</Text>
             </Text>
           </View>
 
           {/* Gradient Button */}
-          <View style={styles.buttonContainer}>
+          <View className="w-4/5">
             <LinearGradient
-              colors={["#0D9543", "#3FB76F", "#A5E8C0"]} 
-              start={{ x: 0.77, y: -0.22 }} 
-              end={{ x: 0, y: 1 }} 
-              style={styles.gradientButton}
+              colors={["#0D9543", "#3FB76F", "#A5E8C0"]}
+              start={{ x: 0.77, y: -0.22 }}
+              end={{ x: 0, y: 1 }}
+              className="w-full rounded-2xl py-4 shadow-md items-center"
             >
               <Text
-                style={styles.buttonText}
+                className="text-white text-lg font-Nunito"
                 onPress={() => router.push("/(auth)/registration")}
               >
                 Let’s Start
@@ -52,62 +55,3 @@ export default function Index() {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    height: "60%",
-    width: "80%",
-    marginVertical: "20%",
-    marginHorizontal: "10%",
-    backgroundColor: "white",
-  },
-  scrollContent: {
-    flex: 1,
-  },
-  innerContainer: {
-    flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 24,
-  },
-  logoContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  logo: {
-    width: "30%", 
-    height: "30%",
-  },
-  title: {
-    textAlign: "center",
-    fontSize: 32,
-    fontWeight: "600",
-    fontFamily: "Comfortaa", // Use Comfortaa font
-  },
-  highlight: {
-    color: "#0D9543",
-  },
-  buttonContainer: {
-    width: "75%",
-    marginBottom: 24,
-  },
-  gradientButton: {
-    width: "100%",
-    borderRadius: 15,
-    paddingVertical: 12,
-    alignItems: "center",
-    justifyContent: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-    elevation: 5,
-  },
-  buttonText: {
-    color: "white",
-    fontSize: 16,
-    fontFamily: "Comfortaa",
-  },
-});

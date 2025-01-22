@@ -5,15 +5,15 @@ const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
-        tabBarShowLabel: false, // Hide labels
-        headerShown: false, // Hide headers
-        tabBarActiveTintColor: "#000", // Active icon color
-        tabBarInactiveTintColor: "#BDBDBD", // Inactive icon color
+        tabBarShowLabel: false,
+        headerShown: false,
+        tabBarActiveTintColor: "#000", 
+        tabBarInactiveTintColor: "#BDBDBD", 
         tabBarStyle: {
-          backgroundColor: "#FFFFFF", // Background color of the tab bar
-          borderTopWidth: 0.5,
-          borderTopColor: "#DADADA",
-          height: 60,
+          backgroundColor: "#FFFFFF", 
+          borderTopWidth: 0.5, 
+          borderTopColor: "#DADADA", 
+          height: 60, 
         },
       }}
     >

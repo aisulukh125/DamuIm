@@ -13,7 +13,6 @@ const AuthLayout = () => {
         <Stack.Screen name="login" />
         <Stack.Screen name="registration" />
         <Stack.Screen name="profileSettings" />
-        <Stack.Screen name="numberVerification" />
       </Stack>
 
       {/* Status Bar */}

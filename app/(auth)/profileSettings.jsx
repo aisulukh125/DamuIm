@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, SafeAreaView, StyleSheet, Alert, Image } from 'react-native';
-import { FontAwesome } from '@expo/vector-icons';
-import { router } from 'expo-router';
-import { CustomButton } from '../../components';
-import * as ImagePicker from 'expo-image-picker';
+import React, { useState } from "react";
+import { View, Text, TextInput, TouchableOpacity, SafeAreaView, Alert, Image, StyleSheet, Dimensions } from "react-native";
+import { useRouter } from "expo-router";
+import { LinearGradient } from "expo-linear-gradient";
+import * as ImagePicker from "expo-image-picker";
+import { FontAwesome } from "@expo/vector-icons";
 
-const profileSettings = () => {
+const { width, height } = Dimensions.get("window");
+
+const ProfileSettings = () => {
+  const router = useRouter();
   const [form, setForm] = useState({
-    firstName: '',
-    lastName: '',
-    phoneNumber: '',
+    firstName: "",
+    lastName: "",
+    phoneNumber: "",
   });
   const [photo, setPhoto] = useState(null);
   const [validation, setValidation] = useState({
@@ -22,8 +25,8 @@ const profileSettings = () => {
     setForm({ ...form, [field]: value });
 
     // Validate inputs
-    if (field === 'phoneNumber') {
-      const phoneRegex = /^\+?\d{0,15}$/; // Validates phone numbers (basic)
+    if (field === "phoneNumber") {
+      const phoneRegex = /^\+?\d{0,15}$/; // Validates phone numbers
       setValidation({ ...validation, [field]: phoneRegex.test(value) });
     } else {
       setValidation({ ...validation, [field]: value.trim().length > 0 });
@@ -33,7 +36,7 @@ const profileSettings = () => {
   const handleSetPhoto = async () => {
     const permission = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permission.granted) {
-      Alert.alert('Permission Required', 'Please allow access to your media library.');
+      Alert.alert("Permission Required", "Please allow access to your media library.");
       return;
     }
 
@@ -51,78 +54,103 @@ const profileSettings = () => {
 
   const handleSubmit = () => {
     if (!validation.firstName || !validation.lastName || !validation.phoneNumber) {
-      Alert.alert('Error', 'Please fill out all fields correctly.');
+      Alert.alert("Error", "Please fill out all fields correctly.");
       return;
     }
 
-    Alert.alert('Success', 'Profile updated successfully!');
-    router.push('./numberVerification');
+    Alert.alert("Success", "Profile updated successfully!");
+    router.push("../(tabs)/home");
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.logoText}>
-        DAUYS<Text style={{ color: '#0D9543' }}>YM</Text>
+      {/* Logo */}
+      <Text style={styles.logo}>
+        DAUY<Text style={styles.logoGreen}>SYM</Text>
       </Text>
-      <View style={styles.formContainer}>
-        <Text style={styles.title}>Profile Setting</Text>
 
-        {/* Profile Photo Section */}
+      {/* Form Section */}
+      <View style={styles.formContainer}>
+        <Text style={styles.title}>Profile Settings</Text>
+
+        {/* Profile Photo */}
         <TouchableOpacity style={styles.photoContainer} onPress={handleSetPhoto}>
           {photo ? (
-            <View>
-              <Image
-                source={{ uri: photo }}
-                style={styles.photo}
-              />
-            </View>
+            <Image source={{ uri: photo }} style={styles.photo} />
           ) : (
             <>
-              <FontAwesome name="camera" size={32} color="#CCC" />
-              <Text style={styles.photoText}>Please set your photo</Text>
+              <FontAwesome name="plus" size={32} color="#CCC" />
             </>
           )}
         </TouchableOpacity>
+        <Text style={styles.photoLabel}>Please set your photo</Text>
 
-        {/* Input Fields */}
-        <View style={styles.inputWrapper}>
+        {/* First Name */}
+        <Text style={styles.label}>First Name</Text>
+        <View
+          style={[
+            styles.inputContainer,
+            validation.firstName && styles.inputValid,
+            !validation.firstName && form.firstName.length > 0 && styles.inputError,
+          ]}
+        >
           <TextInput
             style={styles.input}
-            placeholder="First Name"
+            placeholder="Enter your first name"
             value={form.firstName}
-            onChangeText={(text) => handleInputChange('firstName', text)}
+            onChangeText={(text) => handleInputChange("firstName", text)}
           />
-          {validation.firstName && <FontAwesome name="check-circle" size={20} color="#0D9543" style={styles.inputIcon} />}
+          {validation.firstName && <FontAwesome name="check-circle" size={20} color="#27AE60" />}
         </View>
 
-        <View style={styles.inputWrapper}>
+        {/* Last Name */}
+        <Text style={styles.label}>Last Name</Text>
+        <View
+          style={[
+            styles.inputContainer,
+            validation.lastName && styles.inputValid,
+            !validation.lastName && form.lastName.length > 0 && styles.inputError,
+          ]}
+        >
           <TextInput
             style={styles.input}
-            placeholder="Last Name"
+            placeholder="Enter your last name"
             value={form.lastName}
-            onChangeText={(text) => handleInputChange('lastName', text)}
+            onChangeText={(text) => handleInputChange("lastName", text)}
           />
-          {validation.lastName && <FontAwesome name="check-circle" size={20} color="#0D9543" style={styles.inputIcon} />}
+          {validation.lastName && <FontAwesome name="check-circle" size={20} color="#27AE60" />}
         </View>
 
-        <View style={styles.inputWrapper}>
+        {/* Phone Number */}
+        <Text style={styles.label}>Phone Number</Text>
+        <View
+          style={[
+            styles.inputContainer,
+            validation.phoneNumber && styles.inputValid,
+            !validation.phoneNumber && form.phoneNumber.length > 0 && styles.inputError,
+          ]}
+        >
           <TextInput
             style={styles.input}
-            placeholder="Phone number"
+            placeholder="Enter your phone number"
             value={form.phoneNumber}
-            onChangeText={(text) => handleInputChange('phoneNumber', text)}
+            onChangeText={(text) => handleInputChange("phoneNumber", text)}
             keyboardType="phone-pad"
           />
-          {validation.phoneNumber && <FontAwesome name="check-circle" size={20} color="#0D9543" style={styles.inputIcon} />}
+          {validation.phoneNumber && <FontAwesome name="check-circle" size={20} color="#27AE60" />}
         </View>
 
         {/* Submit Button */}
-        <CustomButton
-          title="Set"
-          handlePress={handleSubmit}
-          containerStyles={styles.submitButton}
-          textStyles={styles.submitButtonText}
-        />
+        <TouchableOpacity onPress={handleSubmit} style={styles.buttonContainer}>
+          <LinearGradient
+                      colors={["#27AE60", "#6FCF97"]}
+                      start={{ x: 0.0, y: 0.0 }}
+                      end={{ x: 1.0, y: 1.0 }}
+                      style={styles.gradientButton}
+          >
+            <Text style={styles.buttonText}>Set</Text>
+          </LinearGradient>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -131,93 +159,110 @@ const profileSettings = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-    padding: 16,
+    backgroundColor: "#fff",
+    paddingHorizontal: "10%",
+    paddingVertical: 0,
   },
-  logoText: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#000',
-    textAlign: 'left',
+  logo: {
+    fontSize: height * 0.03,
+    fontWeight: "regular",
+    color: "#333",
+    position: "absolute",
+    top: height * 0.01,
+    left: width * 0.07,
+  },
+  logoGreen: {
+    color: "#27AE60",
   },
   formContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 20,
+    height: "70%",
+    marginTop: height * 0.12,
+    paddingBottom: height * 0.01,
+    alignItems: "center",
   },
   title: {
-    fontSize: 28,
-    fontWeight: '600',
-    color: '#0D9543',
-    marginBottom: 20,
+    fontSize: height * 0.035,
+    fontWeight: "600",
+    color: "#27AE60",
+    marginBottom: height * 0.03,
   },
   photoContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 50,
-    width: 100,
-    height: 100,
-    backgroundColor: '#F9F9F9',
-    marginBottom: 20,
-    borderColor: '#CCC',
-    borderWidth: 1,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2,
+    width: height * 0.15,
+    height: height * 0.15,
+    borderRadius: height * 0.075,
+    backgroundColor: "#F9F9F9",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: height * 0.01,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowOffset: { width: 0, height: 3 },
   },
   photo: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
+    width: "100%",
+    height: "100%",
+    borderRadius: height * 0.075,
   },
-  photoText: {
-    fontSize: 14,
-    color: '#888',
-    marginTop: 10,
+  photoLabel: {
+    fontSize: height * 0.02,
+    color: "#AAA",
+    marginBottom: height * 0.03,
   },
-  inputWrapper: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: '#CCC',
-    borderRadius: 25,
-    paddingHorizontal: 15,
-    marginVertical: 10,
-    width: '80%',
-    backgroundColor: '#F9F9F9',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
+  label: {
+    fontSize: height * 0.02,
+    color: "#666",
+    marginBottom: height * 0.01,
+    alignSelf: "flex-start",
+  },
+  inputContainer: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: height * 0.02,
+    backgroundColor: "#F9F9F9",
+    borderRadius: 20,
+    paddingHorizontal: "4%",
+    elevation: 3,
+    shadowColor: "#000",
     shadowOpacity: 0.1,
-    shadowRadius: 3,
-    elevation: 2,
+    shadowOffset: { width: 0, height: 2 },
   },
   input: {
     flex: 1,
-    height: 50,
+    height: height * 0.06,
+    fontSize: height * 0.02,
   },
-  inputIcon: {
-    marginLeft: 10,
+  inputValid: {
+    borderWidth: 1,
+    borderColor: "#27AE60",
   },
-  submitButton: {
-    width: '80%',
-    backgroundColor: '#0D9543',
-    borderRadius: 25,
-    paddingVertical: 15,
-    marginTop: 20,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
+  inputError: {
+    borderWidth: 1,
+    borderColor: "red",
+  },
+  buttonContainer: {
+    alignSelf: "center",
+    width: "50%",
+    marginVertical: height * 0.03,
+  },
+  gradientButton: {
+    borderRadius: 20,
+    height: height * 0.07,
+    alignItems: "center",
+    justifyContent: "center",
+    elevation: 5,
+    shadowColor: "#000",
     shadowOpacity: 0.2,
-    shadowRadius: 5,
+    shadowOffset: { width: 0, height: 3 },
   },
-  submitButtonText: {
-    color: '#FFF',
-    fontSize: 18,
-    fontWeight: '600',
-    textAlign: 'center',
+  buttonText: {
+    color: "#fff",
+    fontSize: height * 0.022,
+    fontWeight: "600",
+    textAlign: "center",
   },
 });
 
-export default profileSettings;
+export default ProfileSettings;
